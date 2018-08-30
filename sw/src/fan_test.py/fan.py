@@ -23,6 +23,7 @@ class Fan():
        # setup control pin
         wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
         wiringpi.pinMode(self.pin_control, wiringpi.GPIO.PWM_OUTPUT)      # pwm only works on GPIO port 18/1
+        wiringpi.pullUpDnControl(self.pin_control, wiringpi.GPIO.PUD_UP)
         wiringpi.pwmSetClock(6)     # this parameters correspond to 25kHz
         wiringpi.pwmSetRange(128)
 
@@ -36,6 +37,7 @@ class Fan():
         #todo: should be a property
         # self.speed = int(128 - speed * 0.64)
         # print("new speed", self.speed)
+        self.speed = speed
         wiringpi.pwmWrite(self.pin_control, self.speed)
 
     def rpm(self):
@@ -66,15 +68,24 @@ def main():
     time.sleep(2)
 
     print("set minimum speed")
-    fan.set_speed(0)
+    fan.set_speed(128)
     time.sleep(1)
 
     for _ in range(5):
         print("RPM: ", fan.rpm())
 
-    print("set maximum speed")
-    fan.set_speed(100)
+    print("set higher  speeds")
+    fan.set_speed(64)
     time.sleep(1)
+
+    for _ in range(5):
+        print("RPM: ", fan.rpm())
+
+    print("set minimum speed")
+    fan.set_speed(0)
+    time.sleep(1)
+
+
 
     for _ in range(5):
         print("RPM: ", fan.rpm())
