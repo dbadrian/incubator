@@ -43,7 +43,8 @@ class Fan():
     def rpm(self):
         self.rpm_counter = 0
         wiringpi.delay(int(self.rpm_measurement_time * 1000))
-        return self.rpm_counter * (60.0/self.rpm_measurement_time) / 4.0 # divide by 2 as to senses per revolution
+        rpm = self.rpm_counter * (60.0/self.rpm_measurement_time) / 4.0 # divide by 2 as to senses per revolution
+        return rpm if rpm < 3400 else 3400 # some weird problm with the pwm...truncate..
 
     def __rpm_callback(self):
         self.rpm_counter += 1
@@ -53,8 +54,6 @@ def main():
     print("setup")
     # wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
     wiringpi.wiringPiSetup()
-
-    print()
 
     fan = Fan(0, 2)
 
@@ -75,17 +74,26 @@ def main():
         print("RPM: ", fan.rpm())
 
     print("set higher  speeds")
-    fan.set_speed(64)
+    fan.set_speed(78)
     time.sleep(1)
 
     for _ in range(5):
         print("RPM: ", fan.rpm())
 
-    print("set minimum speed")
-    fan.set_speed(0)
+    fan.set_speed(64)
     time.sleep(1)
 
+    for _ in range(5):
+        print("RPM: ", fan.rpm())
+    
+    fan.set_speed(32)
+    time.sleep(1)
 
+    for _ in range(5):
+        print("RPM: ", fan.rpm())
+
+    fan.set_speed(16)
+    time.sleep(1)
 
     for _ in range(5):
         print("RPM: ", fan.rpm())
