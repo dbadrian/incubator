@@ -1,0 +1,41 @@
+{
+  "airflow_in": {
+    "type": "FanPWM",
+    "gpio_pin_power": null,
+    "gpio_pin_pwm": null
+  },
+  "airflow_out": {
+    "type": "FanPWM",
+    "gpio_pin_power": null,
+    "gpio_pin_pwm": null
+  },
+  "heater": [
+    {
+      "type": "Haljia5V8W",
+      "gpio_pin_heater": null,
+      "gpio_pin_fan": null
+    }
+  ],
+  "ambient_sensors": [
+    {
+      "type": "DHT",
+      "type_id": 22,
+      "gpio_data": null
+    },
+    {
+      "type": "DHT",
+      "type_id": 22,
+      "gpio_data": null
+    },
+    {
+      "type": "DHT",
+      "type_id": 22
+      "gpio_data": null
+    }
+  ],
+  "medium_sensors": [
+    {
+      "type": null,
+    }
+  ]
+}

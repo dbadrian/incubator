@@ -1,0 +1,19 @@
+{
+  "description": "(Optional) Special setting for tempeh spores, not tempeh (example)",
+  "desired_temperature": [
+      [37, 8.5],
+      [32, 0],
+      [32, 8.5],
+      [32, 8.5]
+  ],
+  "desired_humidity": [
+      [90, 24],
+      [60, 6],
+      [60, 48]
+  ],
+  "messages": [
+    [24, "Shuffle/break up clusters (actually thats for koji not tempeh.."]
+  ],
+  "_comment": "-1: continues forever // value: stop after that many hours",
+  "switch_off_time": 100
+}
