@@ -59,8 +59,7 @@ def get_setpoint(mode, name, time_passed):
 def load_config():
     # should so some validation that gpio are not clashing etc,
     # make nice print outs...dunno
-
-    pass
+    return {}
 
 def load_mode(path):
     if os.path.isfile(path):
@@ -75,14 +74,20 @@ def load_mode(path):
         raise FileNotFoundError
 
 def run(args):
+    # system setup
+    cfg = load_config()
+    # setup_system()
+
+    # load recipe
     mode = load_mode(args.mode)
     print(mode)
 
+    # preparation for control loop
     time_passed = args.start_time * 3600
     time_start = time.time() - time_passed # pretend time has already passed
     time_prev_it = time_start
 
-    # control loop
+    # control loop # TODO:limit Hz
     while True:
         # update time stamps
         time_current = time.time()
@@ -94,9 +99,7 @@ def run(args):
         sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
 
         # get current measurements
-        case_temp = 0
-        target_temp = 0
-        case_hmd = 0
+        ambient_temperatures =
 
         #PID
 
@@ -104,6 +107,7 @@ def configurate(args):
     pass
 
 def safety_shutdown():
+    # mail and send text message
     pass
 
 
