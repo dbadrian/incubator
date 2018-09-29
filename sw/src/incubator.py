@@ -36,11 +36,11 @@ def setup_wiringpi():
     wiringpi.pwmSetMode(0)  # PWM_MODE_MS = 0 # TODO: maybe this should be
 
 
-def load_config(cfg_path):
+def load_config(path):
     # should so some validation that gpio are not clashing etc,
     # make nice print outs...dunno\
-    if os.path.exist(cfg_path):
-        with open(cfg_path, 'r') as f:
+    if os.path.isfile(path):
+        with open(path, 'r') as f:
             cfg = json.load(f)
         return cfg
     else:
