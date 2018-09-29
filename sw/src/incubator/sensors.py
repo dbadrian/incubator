@@ -11,7 +11,7 @@ class DHT():
     def __init__(self, type_id, gpio_data):
         self.gpio_data = gpio_data
         if type_id in self.sensor_types:
-            self.sensor_type = sensor_types[type_id]
+            self.sensor_type = self.sensor_types[type_id]
         else:
             raise ValueError("Specified sensor type does not exist!")
 
