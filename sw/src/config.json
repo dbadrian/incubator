@@ -1,36 +1,31 @@
 {
-  "airflow_in": {
-    "type": "FanPWM",
-    "gpio_pin_power": 5,
-    "gpio_pin_pwm": 6
-  },
-  "airflow_out": {
-    "type": "FanPWM",
-    "gpio_pin_power": 1,
-    "gpio_pin_pwm": 4
-  },
-  "heater": [
-    {
-      "type": "Haljia5V8W",
-      "gpio_pin_heater": 17,
-      "gpio_pin_fan": 19
-    }
-  ],
-  "ambient_sensors": [
-    {
-      "type": "DHT",
-      "type_id": 22,
-      "gpio_data": 4
-    },
-    {
-      "type": "DHT",
-      "type_id": 22,
-      "gpio_data": 17
-    },
-  ],
-  "medium_sensors": [
-    {
-      "type": "DS18S20",
-    }
-  ]
+	"airflow_in": {
+		"type": "FanPWM",
+		"gpio_pin_power": 5,
+		"gpio_pin_pwm": 6
+	},
+	"airflow_out": {
+		"type": "FanPWM",
+		"gpio_pin_power": 1,
+		"gpio_pin_pwm": 4
+	},
+	"heater": [{
+		"type": "Haljia5V8W",
+		"gpio_pin_heater": 17,
+		"gpio_pin_fan": 19
+	}],
+	"ambient_sensors": [{
+			"type": "DHT",
+			"type_id": 22,
+			"gpio_data": 4
+		},
+		{
+			"type": "DHT",
+			"type_id": 22,
+			"gpio_data": 17
+		}
+	],
+	"medium_sensors": [{
+		"type": "DS18S20"
+	}]
 }

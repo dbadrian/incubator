@@ -63,13 +63,12 @@ def run(args):
     # system setup
     print(":: Loading Config")
     cfg = load_config(args.cfg)
-    print(cfg)
-    # setup_system()
+    logger.debug(cfg)
 
     # load recipe
     print(":: Loading Mode")
     mode = load_mode(args.mode)
-    print(mode)
+    logger.debug(mode)
 
     print(":: Setting Up WiringPi")
 
