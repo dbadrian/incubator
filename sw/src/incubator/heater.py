@@ -33,7 +33,7 @@ class Haljia5V8W():
         self.fan.on()
 
         if heat_level >= 0 and heat_level <= 100:
-            self.heater_state = int(heat_level * 4096)
+            self.heater_state = int(heat_level * 4096 / 100)
             wiringpi.pwmWrite(self.gpio_pin_heater, self.heater_state)
 
     def heater_off(self):
