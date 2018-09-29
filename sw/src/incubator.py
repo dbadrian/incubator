@@ -77,6 +77,25 @@ def getSensorMeasurements(ambient_sensors, food_sensors):
 
     return res
 
+def control_loop(desired_control_frequency):
+    def control_loop_decorator(func):
+        def func_wrapper(*args, **kwargs):
+            control_loop_start = time.time()
+
+            res = func(*args, **kwargs)
+
+            diff = time.time() - control_loop_start
+            if diff > (1.0/desired_control_frequency):
+                logger.debug("Missed desired control frequecy (%f) = %f", desired_control_frequency, 1.0/diff)
+            else:
+                sleep_time = np.abs((1.0/desired_control_frequency) - diff)
+                logger.debug("Faster than desired control frequency - going to sleep: %f", sleep_time)
+                time.sleep(sleep_time)
+
+            return res
+        return func_wrapper
+    return control_loop_decorator
+
 def run(args):
     logger.debug(args)
     # system setup
