@@ -103,7 +103,7 @@ def run(args):
         print(food_sensors.read())
 
         print("Ambient Sensors")
-        # [print(s.read()) for s in ambient_sensors]
+        [print(s.read()) for s in ambient_sensors]
 
 
         time.sleep(2)
