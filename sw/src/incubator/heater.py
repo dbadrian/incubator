@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import logging
 
-import fan.Fan as Fan
 import wiringpi
+from fan import Fan
 
 
 class Haljia5V8W():
