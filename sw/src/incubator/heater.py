@@ -14,7 +14,7 @@ class Haljia5V8W():
 
         self.heater_state = 0
         wiringpi.pinMode(self.gpio_pin_heater, wiringpi.GPIO.OUTPUT)
-        wiringpi.softPwmCreate(self.gpio_pin_heater ,0, 100)
+        wiringpi.softPwmCreate(self.gpio_pin_heater, 0, 100)
 
         #put everything in a sane state...just in case
         self.heater_off()
@@ -26,6 +26,7 @@ class Haljia5V8W():
 
         if heat_level >= 0 and heat_level <= 100:
             # self.heater_state = int(heat_level * 4096 / 100)
+            self.heater_state = heat_level
             wiringpi.softPwmWrite(self.gpio_pin_heater, self.heater_state)
 
     def heater_off(self):
