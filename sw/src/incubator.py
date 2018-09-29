@@ -42,7 +42,9 @@ def load_config(cfg_path):
     if os.path.exist(cfg_path):
         with open(cfg_path, 'r') as f:
             cfg = json.load(f)
-    return cfg
+        return cfg
+    else:
+        raise FileNotFoundError
 
 def load_mode(path):
     if os.path.isfile(path):
