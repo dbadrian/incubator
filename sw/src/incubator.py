@@ -6,6 +6,8 @@ import sys
 from argparse import ArgumentParser
 import time
 
+import numpy as np
+
 import wiringpi
 
 from incubator.common import get_setpoint
@@ -58,6 +60,23 @@ def load_mode(path):
     else:
         raise FileNotFoundError
 
+def getSensorMeasurements(ambient_sensors, food_sensors):
+    res = {}
+
+    # food sensors
+    fds = food_sensors.read()
+    logger.debug("FS-TMP (raw): {}".format(fds))
+    res["food_temp_mean"] = np.mean([tmp for _, tmp in fds.items])
+    logger.debug("FS-TMP (mean): {}".format(res["food_temp_mean"]))
+
+    # ambient sensors
+    ambs = [print(s.read()) for s in ambient_sensors]
+    logger.debug("AMB-TMP (raw): {}".format(ambs))
+    res["ambient_temp_mean"] = np.mean([sensor["tmp"] for _, sensor in ambs])
+    logger.debug("AMB-TMP (mean): {}".format(res["ambient_temp_mean"]))
+
+    return res
+
 def run(args):
     logger.debug(args)
     # system setup
@@ -74,16 +93,16 @@ def run(args):
 
     setup_wiringpi()
 
-    # preparation for control loop
-    time_passed = args.start_time * 3600
-    time_start = time.time() - time_passed # pretend time has already passed
-    time_prev_it = time_start
-
     # todo: hardcoded, make agnostic
     print(":: Setting Up Sensors")
     ambient_sensors = [DHT(s["type_id"], s['gpio_data']) for s in cfg["ambient_sensors"]]
     logger.debug(ambient_sensors)
     food_sensors = DS18S20()
+
+    # preparation for control loop
+    time_passed = args.start_time * 3600
+    time_start = time.time() - time_passed # pretend time has already passed
+    time_prev_it = time_start
 
     # control loop # TODO:limit Hz
     while True:
@@ -96,14 +115,9 @@ def run(args):
         # sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
         # sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
 
-        # get current measurements
-        # ambient_temperatures =
-
-        print("Food Sensors")
-        print(food_sensors.read())
-
-        print("Ambient Sensors")
-        [print(s.read()) for s in ambient_sensors]
+        # Get updated measurements
+        res = getSensorMeasurements(ambient_sensors, food_sensors)
+        print(res)
 
 
         time.sleep(2)
