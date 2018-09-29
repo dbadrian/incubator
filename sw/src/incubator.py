@@ -57,6 +57,7 @@ def load_mode(path):
         raise FileNotFoundError
 
 def run(args):
+    logger.debug(args)
     # system setup
     print(":: Loading Config")
     cfg = load_config(args.cfg)
