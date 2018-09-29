@@ -80,8 +80,9 @@ def run(args):
     time_prev_it = time_start
 
     # todo: hardcoded, make agnostic
+    print(":: Setting Up Sensors")
     # ambient_sensors = [DHT(s["type_id"], s['gpio_data']) for s in cfg["ambient_sensors"]]
-    logger.debug(ambient_sensors)
+    # logger.debug(ambient_sensors)
     food_sensors = DS18S20()
 
     # control loop # TODO:limit Hz
