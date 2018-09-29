@@ -81,7 +81,7 @@ def run(args):
 
     # todo: hardcoded, make agnostic
     print(":: Setting Up Sensors")
-    # ambient_sensors = [DHT(s["type_id"], s['gpio_data']) for s in cfg["ambient_sensors"]]
+    ambient_sensors = [DHT(s["type_id"], s['gpio_data']) for s in cfg["ambient_sensors"]]
     # logger.debug(ambient_sensors)
     food_sensors = DS18S20()
 

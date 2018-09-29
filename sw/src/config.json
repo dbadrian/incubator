@@ -16,12 +16,12 @@
 	}],
 	"ambient_sensors": [{
 			"type": "DHT",
-			"type_id": 22,
+			"type_id": "22",
 			"gpio_data": 4
 		},
 		{
 			"type": "DHT",
-			"type_id": 22,
+			"type_id": "22",
 			"gpio_data": 17
 		}
 	],
