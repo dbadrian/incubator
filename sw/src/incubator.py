@@ -66,6 +66,8 @@ def run(args):
     mode = load_mode(args.mode)
     print(mode)
 
+    setup_wiringpi()
+
     # preparation for control loop
     time_passed = args.start_time * 3600
     time_start = time.time() - time_passed # pretend time has already passed
