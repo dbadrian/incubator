@@ -47,7 +47,7 @@ class FanRPM(Fan):
 
 class FanPWM(Fan):
     def __init__(self, gpio_pin_power, gpio_pin_pwm):
-        super(Fan, self).__init__(gpio_pin_power)
+        super(Fan).__init__(gpio_pin_power)
         self.gpio_pin_pwm = gpio_pin_pwm
 
         # setup control pin
