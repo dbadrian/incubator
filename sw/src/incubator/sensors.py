@@ -11,9 +11,9 @@ class DHT():
     def __init__(self, type_id, gpio_data):
         self.gpio_data = gpio_data
         if type_id in self.sensor_types:
-            self.sensor_type = type_id
+            self.sensor_type = sensor_types[type_id]
         else:
-            raise ValueError("Specified sneosr type does not exist!")
+            raise ValueError("Specified sensor type does not exist!")
 
     def read(self):
         hmd, tmp = Adafruit_DHT.read_retry(self.sensor_type, self.gpio_data)

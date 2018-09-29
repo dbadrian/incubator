@@ -1,6 +1,8 @@
 # my stuff/incubator
 msg_config.json
 
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
