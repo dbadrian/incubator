@@ -8,11 +8,6 @@ from fan import Fan
 class Haljia5V8W():
     # TODO: Refactor into a base Heater Class and inherit
 
-    # pwmFrequency in Hz = 1.2e6Hz / pwmClock / pwmRange
-    # Here: 1.144 Hz
-    PWM_CLOCK = 4095
-    PWM_RANGE = 4096
-
     def __init__(self, gpio_pin_heater, gpio_pin_fan):
         self.gpio_pin_heater = gpio_pin_heater
         self.fan = Fan(gpio_pin_fan)
@@ -20,10 +15,6 @@ class Haljia5V8W():
         self.heater_state = 0
         wiringpi.pinMode(self.gpio_pin_heater, wiringpi.GPIO.OUTPUT)
         wiringpi.softPwmCreate(self.gpio_pin_heater ,0, 100)
-        wiringpi.pullUpDnControl(self.gpio_pin_heater, wiringpi.GPIO.PUD_DOWN)
-        # Set to slowest possible level
-        # wiringpi.pwmSetClock(self.PWM_CLOCK)
-        # wiringpi.pwmSetRange(self.PWM_RANGE)
 
         #put everything in a sane state...just in case
         self.heater_off()
