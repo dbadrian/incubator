@@ -58,13 +58,17 @@ def load_mode(path):
 
 def run(args):
     # system setup
+    print(":: Loading Config")
     cfg = load_config(args.cfg)
     print(cfg)
     # setup_system()
 
     # load recipe
+    print(":: Loading Mode")
     mode = load_mode(args.mode)
     print(mode)
+
+    print(":: Setting Up WiringPi")
 
     setup_wiringpi()
 
