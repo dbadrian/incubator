@@ -9,7 +9,7 @@ import time
 import wiringpi
 
 from incubator.common import get_setpoint
-
+from incubator.sensors import DHT, DS18S20
 
 def setup_logging(
         path='logger.json',
@@ -36,10 +36,13 @@ def setup_wiringpi():
     wiringpi.pwmSetMode(0)  # PWM_MODE_MS = 0 # TODO: maybe this should be
 
 
-def load_config():
+def load_config(cfg_path):
     # should so some validation that gpio are not clashing etc,
-    # make nice print outs...dunno
-    return {}
+    # make nice print outs...dunno\
+    if os.path.exist(cfg_path):
+        with open(cfg_path, 'r') as f:
+            cfg = json.load(f)
+    return cfg
 
 def load_mode(path):
     if os.path.isfile(path):
@@ -55,7 +58,8 @@ def load_mode(path):
 
 def run(args):
     # system setup
-    cfg = load_config()
+    cfg = load_config(args.cfg)
+    print(cfg)
     # setup_system()
 
     # load recipe
@@ -67,19 +71,32 @@ def run(args):
     time_start = time.time() - time_passed # pretend time has already passed
     time_prev_it = time_start
 
+    # todo: hardcoded, make agnostic
+    ambient_sensors = [DHT("22", s['gpio_data']) for s in cfg["ambient_sensors"]]
+    food_sensors = DS18S20()
+
     # control loop # TODO:limit Hz
     while True:
-        # update time stamps
-        time_current = time.time()
-        total_dt = time_current - time_prev_it
-        time_passed += 600 #total_dt
-
-        # get_current setpoints
-        sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
-        sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
+        # # update time stamps
+        # time_current = time.time()
+        # total_dt = time_current - time_prev_it
+        # time_passed += 600 #total_dt
+        #
+        # # get_current setpoints
+        # sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
+        # sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
 
         # get current measurements
-        ambient_temperatures =
+        # ambient_temperatures =
+
+        print("Food Sensors")
+        print(food_sensors.read())
+
+        print("Ambient Sensors")
+        [print(s.read()) for s in ambient_sensors]
+
+
+        time.sleep(2)
 
         #PID
 
@@ -104,6 +121,8 @@ if __name__ == "__main__":
     run_cmd.add_argument('--mode', '-m', type=str, required=True, help="Name of model.")
     run_cmd.add_argument('--start_time', '-st', type=int, default=0, required=False,
                          help="Name of model.")
+    run_cmd.add_argument('--cfg', '-c', type=str, required=True, help="Path to config file.")
+
 
     # Testing Mode
     cfg_cmd = subparsers.add_parser(name="configurate",
