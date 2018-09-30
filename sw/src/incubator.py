@@ -132,7 +132,7 @@ def run(args):
         # # update time stamps
         time_current = time.time()
         total_dt = time_current - time_prev_it
-        time_passed += total_dt + args.time_skip
+        time_passed += total_dt * args.time_scale
 
         # get_current setpoints
         sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
@@ -171,9 +171,11 @@ if __name__ == "__main__":
     run_cmd.set_defaults(func=run)
 
     run_cmd.add_argument('--mode', '-m', type=str, required=True, help="Name of model.")
+    run_cmd.add_argument('--cfg', '-c', type=str, required=True, help="Path to config file.")
     run_cmd.add_argument('--start_time', '-st', type=int, default=0, required=False,
                          help="Name of model.")
-    run_cmd.add_argument('--cfg', '-c', type=str, required=True, help="Path to config file.")
+    run_cmd.add_argument('--time_scale', '-ts', type=int, default=1, required=False,
+                         help="Play back faster...for debugging")
 
 
     # Testing Mode
