@@ -72,7 +72,7 @@ def getSensorMeasurements(ambient_sensors, food_sensors):
     # ambient sensors
     ambs = [s.read() for s in ambient_sensors]
     logger.debug("AMB-TMP (raw): {}".format(ambs))
-    res["ambient_temp_mean"] = np.mean([sensor["tmp"] for _, sensor in ambs])
+    res["ambient_temp_mean"] = np.mean([sensor["tmp"] for sensor in ambs])
     logger.debug("AMB-TMP (mean): {}".format(res["ambient_temp_mean"]))
 
     return res
