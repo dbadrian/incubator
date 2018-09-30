@@ -131,7 +131,7 @@ def run(args):
 
     print(":: Setting Up Heater")
     heater = Haljia5V8W(cfg["heater"][0]["gpio_pin_heater"], cfg["heater"][0]["gpio_pin_fan"])
-    hPID = PID(Kp=20)
+    hPID = PID(Kp=30)
 
     # control loop # TODO:limit Hz
     while True:
@@ -151,7 +151,7 @@ def run(args):
 
         # error
         err_hmd = sp_hmd - res['ambient_hmd_mean']
-        err_tmp = sp_temp - res['ambient_temp_mean']
+        err_tmp = sp_temp - res['food_temp_mean']
         logger.debug("Error@{} :: HMD={} TMP={}".format(time_passed, err_hmd, err_tmp))
 
         heater_feedback = hPID.update(err_tmp)
