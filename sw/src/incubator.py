@@ -75,6 +75,10 @@ def getSensorMeasurements(ambient_sensors, food_sensors):
     res["ambient_temp_mean"] = np.mean([sensor["tmp"] for sensor in ambs])
     logger.debug("AMB-TMP (mean): {}".format(res["ambient_temp_mean"]))
 
+    logger.debug("AMB-HMD (raw): {}".format(ambs))
+    res["ambient_hmd_mean"] = np.mean([sensor["tmp"] for sensor in ambs])
+    logger.debug("AMB-HMD (mean): {}".format(res["ambient_hmd_mean"]))
+
     return res
 
 def control_loop(desired_control_frequency):
@@ -126,17 +130,22 @@ def run(args):
     # control loop # TODO:limit Hz
     while True:
         # # update time stamps
-        # time_current = time.time()
-        # total_dt = time_current - time_prev_it
-        # time_passed += 600 #total_dt
-        #
-        # # get_current setpoints
-        # sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
-        # sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
+        time_current = time.time()
+        total_dt = time_current - time_prev_it
+        time_passed += total_dt + args.time_skip
+
+        # get_current setpoints
+        sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
+        sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
+        logger.debug("Setpoints@{} :: HMD={} TMP{}".format(time_passed, sp_hmd, sp_temp))
 
         # Get updated measurements
         res = getSensorMeasurements(ambient_sensors, food_sensors)
-        print(res)
+
+        # error
+        err_hmd = sp_hmd - res['ambient_hmd_mean']
+        err_tmp = sp_temp - res['ambient_temp_mean']
+        logger.debug("Error@{} :: HMD={} TMP{}".format(time_passed, err_hmd, err_tmp))
 
 
         time.sleep(2)
