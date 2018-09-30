@@ -155,6 +155,7 @@ def run(args):
         logger.debug("Error@{} :: HMD={} TMP={}".format(time_passed, err_hmd, err_tmp))
 
         heater_feedback = hPID.update(err_tmp)
+        logger.debug("Feedback Heater: {}".format(heater_feedback))
         if heater_feedback and heater_feedback > 0:
             heater.heater_on(heater_feedback)
         else:
