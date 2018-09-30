@@ -20,14 +20,19 @@ class Haljia5V8W():
         self.heater_off()
 
     def heater_on(self, heat_level):
+
+        heat_level = max(0, min(100, heat_level))
+        self.heater_state = heat_level
+
         # we always switch on the fan, this way we can have the fan running
         # even if the set the heat_level to zero (no heating)
         if heat_level > 10 and heat_level <= 100:
             self.fan.on()
             # self.heater_state = int(heat_level * 4096 / 100)
-            self.heater_state = heat_level
             wiringpi.softPwmWrite(self.gpio_pin_heater, self.heater_state)
         elif heat_level >= 0 and heat_level <= 10:
+            self.fan.off()
+            self.heater_off()
 
 
 
