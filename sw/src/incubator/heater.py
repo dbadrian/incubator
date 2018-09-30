@@ -2,7 +2,7 @@
 import logging
 
 import wiringpi
-from fan import Fan
+from .fan import Fan
 
 logger = logging.getLogger(__name__)
 
