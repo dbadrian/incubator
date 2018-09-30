@@ -131,7 +131,7 @@ def run(args):
 
     print(":: Setting Up Heater")
     heater = Haljia5V8W(cfg["heater"][0]["gpio_pin_heater"], cfg["heater"][0]["gpio_pin_fan"])
-    hPID = PID(Kp=30)
+    hPID = PID(Kp=60)
 
     # control loop # TODO:limit Hz
     while True:
