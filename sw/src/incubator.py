@@ -12,6 +12,8 @@ import wiringpi
 
 from incubator.common import get_setpoint
 from incubator.sensors import DHT, DS18S20
+from incubator.pid import PID
+from incubator.heater import Haljia5V8W
 
 def setup_logging(
         path='logger.json',
@@ -127,6 +129,10 @@ def run(args):
     time_start = time.time() - time_passed # pretend time has already passed
     time_prev_it = time_start
 
+    print(":: Setting Up Heater")
+    heater = Haljia5V8W(cfg["heater"][0]["gpio_pin_heater"], cfg["heater"][0]["gpio_pin_fan"])
+    hPID = PID(Kp=10)
+
     # control loop # TODO:limit Hz
     while True:
         # # update time stamps
@@ -147,10 +153,16 @@ def run(args):
         err_tmp = sp_temp - res['ambient_temp_mean']
         logger.debug("Error@{} :: HMD={} TMP={}".format(time_passed, err_hmd, err_tmp))
 
+        heater_feedback = hPID.update(err_tmp)
+        if heater_feedback > 0:
+            heater.heater_on(heater_feedback)
+        else:
+            heater.heater_off()
+            # switch on fans?
 
         time.sleep(2)
 
-        #PID
+
 
 def configurate(args):
     pass
