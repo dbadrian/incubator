@@ -137,7 +137,7 @@ def run(args):
         # get_current setpoints
         sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
         sp_hmd = get_setpoint(mode, "desired_humidity", time_passed)
-        logger.debug("Setpoints@{} :: HMD={} TMP{}".format(time_passed, sp_hmd, sp_temp))
+        logger.debug("Setpoints@{} :: HMD={} TMP={}".format(time_passed, sp_hmd, sp_temp))
 
         # Get updated measurements
         res = getSensorMeasurements(ambient_sensors, food_sensors)
@@ -145,7 +145,7 @@ def run(args):
         # error
         err_hmd = sp_hmd - res['ambient_hmd_mean']
         err_tmp = sp_temp - res['ambient_temp_mean']
-        logger.debug("Error@{} :: HMD={} TMP{}".format(time_passed, err_hmd, err_tmp))
+        logger.debug("Error@{} :: HMD={} TMP={}".format(time_passed, err_hmd, err_tmp))
 
 
         time.sleep(2)
