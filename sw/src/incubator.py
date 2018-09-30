@@ -131,7 +131,7 @@ def run(args):
 
     print(":: Setting Up Heater")
     heater = Haljia5V8W(cfg["heater"][0]["gpio_pin_heater"], cfg["heater"][0]["gpio_pin_fan"])
-    hPID = PID(Kp=10)
+    hPID = PID(Kp=20)
 
     # control loop # TODO:limit Hz
     while True:
@@ -139,6 +139,7 @@ def run(args):
         time_current = time.time()
         total_dt = time_current - time_prev_it
         time_passed += total_dt * args.time_scale
+        time_prev_it = time_current
 
         # get_current setpoints
         sp_temp = get_setpoint(mode, "desired_temperature", time_passed)
