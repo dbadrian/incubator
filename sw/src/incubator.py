@@ -131,7 +131,7 @@ def run(args):
 
     print(":: Setting Up Heater")
     heater = Haljia5V8W(cfg["heater"][0]["gpio_pin_heater"], cfg["heater"][0]["gpio_pin_fan"])
-    hPID = PID(60,0.1,0.1)
+    hPID = PID(args.kp, args.ki, args.kd)
 
     # control loop # TODO:limit Hz
     while True:
@@ -189,7 +189,12 @@ if __name__ == "__main__":
                          help="Name of model.")
     run_cmd.add_argument('--time_scale', '-ts', type=int, default=1, required=False,
                          help="Play back faster...for debugging")
-
+    run_cmd.add_argument('--kp', type=float, default=60,
+                         required=False)
+    run_cmd.add_argument('--ki', type=float, default=0.0,
+                         required=False)
+    run_cmd.add_argument('--kd', type=float, default=0.0,
+                         required=False)
 
     # Testing Mode
     cfg_cmd = subparsers.add_parser(name="configurate",
