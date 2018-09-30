@@ -192,9 +192,9 @@ if __name__ == "__main__":
                          help="Play back faster...for debugging")
     run_cmd.add_argument('--kp', type=float, default=60,
                          required=False)
-    run_cmd.add_argument('--ki', type=float, default=0.0,
+    run_cmd.add_argument('--ki', type=float, default=0.01,
                          required=False)
-    run_cmd.add_argument('--kd', type=float, default=0.0,
+    run_cmd.add_argument('--kd', type=float, default=10.0,
                          required=False)
 
     # Testing Mode
