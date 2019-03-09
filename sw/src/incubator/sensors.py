@@ -16,7 +16,7 @@ class DHT():
             raise ValueError("Specified sensor type does not exist!")
 
     def read(self):
-        hmd, tmp = Adafruit_DHT.read_retry(self.sensor_type, self.gpio_data)
+        hmd, tmp = Adafruit_DHT.read_retry(self.sensor_type, self.gpio_data, 2, 2)
         results = {
             "humidity": hmd,
             "tmp": tmp

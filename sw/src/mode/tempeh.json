@@ -1,6 +1,7 @@
 {
   "description": "(Optional) Special setting for tempeh spores, not tempeh (example)",
   "desired_temperature": [
+      [37, 1],
       [37, 5],
       [30, 30]
   ],
@@ -10,5 +11,5 @@
   "messages": [
   ],
   "_comment": "-1: continues forever // value: stop after that many hours",
-  "switch_off_time": 10
+  "switch_off_time": 50
 }
