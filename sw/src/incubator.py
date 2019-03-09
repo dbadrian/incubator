@@ -156,6 +156,7 @@ def run(args):
 
         # error
         err_hmd = sp_hmd - res['ambient_hmd_mean']
+        print("TEMP USED FOR ERROR:", np.mean([res['food_temp_mean'], res['ambient_temp_mean']]))
         err_tmp = sp_temp - np.mean([res['food_temp_mean'], res['ambient_temp_mean']])
         logger.debug("Error@{} :: HMD={} TMP={}".format(time_passed, err_hmd, err_tmp))
 
