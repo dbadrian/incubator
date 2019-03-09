@@ -20,6 +20,11 @@ class Haljia5V8W():
         #put everything in a sane state...just in case
         self.heater_off()
 
+    def __del__(self):
+        self.heater_off()
+        print("Killing heater")
+
+
     def heater_on(self, heat_level):
 
         heat_level = max(0, min(100, heat_level))
