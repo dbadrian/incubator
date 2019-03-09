@@ -1,8 +1,8 @@
 {
   "description": "(Optional) Special setting for tempeh spores, not tempeh (example)",
   "desired_temperature": [
-      [37, 5],
-      [32, 30]
+      // [37, 1],
+      [33, 30]
   ],
   "desired_humidity": [
       [90, 10000]
