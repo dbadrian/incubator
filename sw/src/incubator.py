@@ -75,11 +75,11 @@ def getSensorMeasurements(ambient_sensors, food_sensors):
     ambs = [s.read() for s in ambient_sensors]
     if ambs:
         logger.debug("AMB-TMP (raw): {}".format(ambs))
-        res["ambient_temp_mean"] = np.mean([sensor["tmp"] for sensor in ambs])
+        res["ambient_temp_mean"] = np.mean([sensor["tmp"] for sensor in ambs if sensor["tmp"] is not None])
         logger.debug("AMB-TMP (mean): {}".format(res["ambient_temp_mean"]))
 
         logger.debug("AMB-HMD (raw): {}".format(ambs))
-        res["ambient_hmd_mean"] = np.mean([sensor["tmp"] for sensor in ambs])
+        res["ambient_hmd_mean"] = np.mean([sensor["humidity"] for sensor in ambs if sensor["humidity"] is not None])
         logger.debug("AMB-HMD (mean): {}".format(res["ambient_hmd_mean"]))
     else:
         res["ambient_temp_mean"] = -1.0
