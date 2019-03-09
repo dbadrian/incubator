@@ -156,12 +156,12 @@ def run(args):
 
         # error
         err_hmd = sp_hmd - res['ambient_hmd_mean']
-        err_tmp = sp_temp - np.mean([res['food_temp_mean'], res['ambient_tmp_mean']])
+        err_tmp = sp_temp - np.mean([res['food_temp_mean'], res['ambient_temp_mean']])
         logger.debug("Error@{} :: HMD={} TMP={}".format(time_passed, err_hmd, err_tmp))
 
         heater_feedback = hPID.update(err_tmp)
         logger.debug("Feedback Heater: {}".format(heater_feedback))
-        if heater_feedback and heater_feedback > 0 and res['ambient_tmp_mean'] < (sp_temp+1):
+        if heater_feedback and heater_feedback > 0 and res['ambient_temp_mean'] < (sp_temp+1):
             heater.heater_on(heater_feedback)
         else:
             heater.heater_off()
