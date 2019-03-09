@@ -27,7 +27,7 @@ class Haljia5V8W():
 
     def heater_on(self, heat_level):
 
-        heat_level = max(0, min(100, heat_level))
+        heat_level = max(0, min(80, heat_level))
         self.heater_state = int(heat_level)
 
         # we always switch on the fan, this way we can have the fan running
